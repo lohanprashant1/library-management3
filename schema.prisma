@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  password     String
+  name         String
+  role         String    @default("admin")
+  token        String?
+  tokenExpiry  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model SiteContent {
+  id        String   @id @default(cuid())
+  section   String   @unique
+  content   String
+  updatedAt DateTime @updatedAt
+}
+
+model Book {
+  id        String   @id @default(cuid())
+  title     String
+  author    String
+  genre     String
+  year      Int
+  isbn      String   @unique
+  available Boolean  @default(true)
+  copies    Int      @default(1)
+  featured  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LibraryEvent {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  date         String
+  time         String
+  location     String
+  category     String
+  registration Boolean  @default(false)
+  capacity     Int      @default(50)
+  registered   Int      @default(0)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model NewsArticle {
+  id        String   @id @default(cuid())
+  title     String
+  excerpt   String
+  content   String
+  category  String
+  date      String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  icon        String
+  color       String
+  active      Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  category  String
+  active    Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model StaffMember {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  email     String
+  phone     String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Room {
+  id        String   @id @default(cuid())
+  name      String
+  type      String
+  capacity  Int
+  features  String
+  available Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MembershipPlan {
+  id        String   @id @default(cuid())
+  name      String
+  price     String
+  duration  String
+  benefits  String
+  active    Boolean  @default(true)
+  featured  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DigitalResource {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  category    String
+  url         String
+  icon        String
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
